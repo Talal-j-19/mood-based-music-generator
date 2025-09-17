@@ -1,5 +1,4 @@
-gemini = GeminiClient()
-lyrica = LyricaClient()
+
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import FileResponse
 from pydantic import BaseModel
@@ -24,17 +23,18 @@ def generate_music(request: MusicRequest):
     try:
         # Step 1: Generate Lyria prompt from Gemini
         lyria_prompt = gemini.generate_prompt(request.mood, request.style)
+        print(f"[DEBUG] Lyria prompt: {lyria_prompt}")
         # Step 2: Generate music file from Lyria
         output_path = f"generated_{uuid.uuid4().hex}.wav"
         result_path = lyrica.generate_music(
             prompt=lyria_prompt,
-            negative_prompt="no vocals, no lyrics, instrumental only",
+            negative_prompt="no vocals, no lyrics, instrumental only, no recitation, instrumental only, only describe instruments, mood, and style",
             output_path=output_path
         )
         if not result_path or not os.path.exists(result_path):
             raise HTTPException(
                 status_code=500,
-                detail="Music generation failed."
+                detail=f"Music generation failed. Lyria prompt: {lyria_prompt}"
             )
         return FileResponse(
             result_path,

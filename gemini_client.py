@@ -8,10 +8,10 @@ class GeminiClient:
         system_instructions = (
             "You are an expert in generating safe, strictly instrumental music prompts "
             "for Google Lyria API, according to the user's mood and style. "
-            "Never include lyrics, vocals, recitation, or anything that could be "
-            "interpreted as singing or spoken word. "
-            "Avoid any language that could trigger content or "
-            "recitation filters. "
+            "Never include lyrics, vocals, recitation, spoken word, or anything that could be "
+            "interpreted as singing, speech, or recitation. "
+            "Only describe musical instruments, mood, and style. "
+            "Avoid any language that could trigger content or recitation filters. "
             "Return ONLY the Lyria prompt, with no extra text."
         )
         self.model = genai.GenerativeModel(
