@@ -3,8 +3,8 @@ import requests
 API_URL = "http://147.182.254.9:8002/generate-music"
 
 payload = {
-    "mood": "happy",
-    "style": "upbeat electronic"
+    "mood": "Energetic",
+    "style": "Upbeat"
 }
 
 response = requests.post(API_URL, json=payload)
